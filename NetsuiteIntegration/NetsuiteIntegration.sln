@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.757
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NetsuiteIntegration", "NetsuiteIntegration\NetsuiteIntegration.vbproj", "{BC54DBC9-B100-4370-831F-88A17F7F87A7}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "NetsuiteLibrary", "NetsuiteLibrary\NetsuiteLibrary.vbproj", "{73140A1E-092B-4955-AC3E-584561F4A897}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC54DBC9-B100-4370-831F-88A17F7F87A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC54DBC9-B100-4370-831F-88A17F7F87A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC54DBC9-B100-4370-831F-88A17F7F87A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC54DBC9-B100-4370-831F-88A17F7F87A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73140A1E-092B-4955-AC3E-584561F4A897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73140A1E-092B-4955-AC3E-584561F4A897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73140A1E-092B-4955-AC3E-584561F4A897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73140A1E-092B-4955-AC3E-584561F4A897}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2798D582-3FB4-4FC0-9B78-CF9893979549}
+	EndGlobalSection
+EndGlobal
