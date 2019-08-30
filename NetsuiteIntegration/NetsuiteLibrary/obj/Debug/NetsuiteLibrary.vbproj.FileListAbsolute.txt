@@ -30,3 +30,13 @@ D:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\Netsui
 D:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.dll
 D:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.xml
 D:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.pdb
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\bin\Debug\NetsuiteLibrary.dll.config
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\bin\Debug\NetsuiteLibrary.dll
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\bin\Debug\NetsuiteLibrary.pdb
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\bin\Debug\NetsuiteLibrary.xml
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.Resources.resources
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.vbproj.GenerateResource.cache
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.vbproj.CoreCompileInputs.cache
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.dll
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.xml
+E:\NetSuiteConnectionUpdate\NetsuiteIntegration\NetsuiteLibrary\obj\Debug\NetsuiteLibrary.pdb

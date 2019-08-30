@@ -114,7 +114,7 @@ Public Class Netsuite
             Return GetStatusDetails(writeres.status)
         End If
     End Function
-    Function UpdateProductEstimateEndDate(internalId, newdate)
+    Function UpdateProductEstimateEndDate(internalId, location, lineuniquekey, newdate)
         Dim po As PurchaseOrder
         po = New PurchaseOrder
         po.internalId = internalId
@@ -133,27 +133,56 @@ Public Class Netsuite
             Dim itemlist As PurchaseOrderItem() = curPuchaseOrder.itemList.item
             Dim newitemlist As PurchaseOrderItem()
             newitemlist = New PurchaseOrderItem(itemlist.Length - 1) {}
+
+            Dim locationRec As RecordRef
+            locationRec = New RecordRef
+            locationRec.internalId = curPuchaseOrder.location.internalId
+            locationRec.type = curPuchaseOrder.location.type
+            locationRec.typeSpecified = True
+
             Dim i = 0
+            Dim flag As Boolean = False
             For Each item As PurchaseOrderItem In itemlist
-                Dim iteminternalId = item.item.internalId
-                Dim qty = item.quantity
-                Dim custitem As RecordRef = New RecordRef()
-                custitem.type = RecordType.inventoryItem
-                custitem.typeSpecified = True
-                custitem.internalId = iteminternalId
-                Dim lineItem As PurchaseOrderItem = New PurchaseOrderItem
-                lineItem.item = custitem
-                lineItem.quantity = qty
-                lineItem.quantitySpecified = True
-                Dim cfRefs As CustomFieldRef()
-                cfRefs = New CustomFieldRef(0) {}
-                Dim datefRef As DateCustomFieldRef
-                datefRef = New DateCustomFieldRef
-                datefRef.scriptId = "custcol_prodenddate"
-                datefRef.value = custcolProdenddateValue
-                cfRefs(0) = CType(datefRef, CustomFieldRef)
-                lineItem.customFieldList = cfRefs
-                newitemlist(i) = lineItem
+                Dim customFieldlist = item.customFieldList
+                For Each customfield As CustomFieldRef In customFieldlist
+                    If customfield.scriptId Is "custcol_line_unique_key" Then
+                        Dim value As String = CType(customfield, StringCustomFieldRef).value
+                        If value Is lineuniquekey Then
+                            flag = True
+                            Exit For
+                        End If
+                    End If
+                Next
+                If flag Then
+                    Dim iteminternalId = item.item.internalId
+                    Dim qty = item.quantity
+                    Dim custitem As RecordRef = New RecordRef()
+                    custitem.type = RecordType.inventoryItem
+                    custitem.typeSpecified = True
+                    custitem.internalId = iteminternalId
+                    Dim lineItem As PurchaseOrderItem = New PurchaseOrderItem
+                    lineItem.item = custitem
+                    lineItem.quantity = qty
+                    lineItem.quantitySpecified = True
+
+                    Dim cfRefs As CustomFieldRef()
+                    cfRefs = New CustomFieldRef(1) {}
+                    Dim datefRef As DateCustomFieldRef
+                    datefRef = New DateCustomFieldRef
+                    datefRef.scriptId = "custcol_prodenddate"
+                    datefRef.value = custcolProdenddateValue
+                    Dim uniquekey As StringCustomFieldRef = New StringCustomFieldRef
+                    uniquekey.scriptId = "custcol_line_unique_key"
+                    uniquekey.value = lineuniquekey
+                    cfRefs(0) = CType(datefRef, CustomFieldRef)
+                    cfRefs(1) = CType(uniquekey, CustomFieldRef)
+                    lineItem.customFieldList = cfRefs
+
+                    lineItem.location = locationRec
+
+                    newitemlist(i) = lineItem
+                End If
+
                 i += 1
             Next
             Dim newPOItemList As PurchaseOrderItemList
@@ -174,7 +203,7 @@ Public Class Netsuite
 
     End Function
 
-    Function UpdateMemoFromVendor(internalId, newdata)
+    Function UpdateMemoFromVendor(internalId, location, lineuniquekey, newdata)
         Dim po As PurchaseOrder
         po = New PurchaseOrder
         po.internalId = internalId
@@ -191,27 +220,48 @@ Public Class Netsuite
             Dim itemlist As PurchaseOrderItem() = curPuchaseOrder.itemList.item
             Dim newitemlist As PurchaseOrderItem()
             newitemlist = New PurchaseOrderItem(itemlist.Length - 1) {}
+
+            Dim locationRec As RecordRef
+            locationRec = New RecordRef
+            locationRec.internalId = curPuchaseOrder.location.internalId
+            locationRec.type = curPuchaseOrder.location.type
+            locationRec.typeSpecified = True
+
             Dim i = 0
+            Dim flag As Boolean = False
             For Each item As PurchaseOrderItem In itemlist
-                Dim iteminternalId = item.item.internalId
-                Dim qty = item.quantity
-                Dim custitem As RecordRef = New RecordRef()
-                custitem.type = RecordType.inventoryItem
-                custitem.typeSpecified = True
-                custitem.internalId = iteminternalId
-                Dim lineItem As PurchaseOrderItem = New PurchaseOrderItem
-                lineItem.item = custitem
-                lineItem.quantity = qty
-                lineItem.quantitySpecified = True
-                Dim cfRefs As CustomFieldRef()
-                cfRefs = New CustomFieldRef(0) {}
-                Dim datafRef As StringCustomFieldRef
-                datafRef = New StringCustomFieldRef
-                datafRef.scriptId = "custcol_vendor_memo"
-                datafRef.value = newdata
-                cfRefs(0) = CType(datafRef, CustomFieldRef)
-                lineItem.customFieldList = cfRefs
-                newitemlist(i) = lineItem
+                Dim customFieldlist = item.customFieldList
+                For Each customfield As CustomFieldRef In customFieldlist
+                    If customfield.scriptId Is "custcol_line_unique_key" Then
+                        Dim value As String = CType(customfield, StringCustomFieldRef).value
+                        If value Is lineuniquekey Then
+                            flag = True
+                            Exit For
+                        End If
+                    End If
+                Next
+                If flag Then
+                    Dim iteminternalId = item.item.internalId
+                    Dim qty = item.quantity
+                    Dim custitem As RecordRef = New RecordRef()
+                    custitem.type = RecordType.inventoryItem
+                    custitem.typeSpecified = True
+                    custitem.internalId = iteminternalId
+                    Dim lineItem As PurchaseOrderItem = New PurchaseOrderItem
+                    lineItem.item = custitem
+                    lineItem.quantity = qty
+                    lineItem.quantitySpecified = True
+
+                    Dim cfRefs As CustomFieldRef()
+                    cfRefs = New CustomFieldRef(0) {}
+                    Dim datafRef As StringCustomFieldRef
+                    datafRef = New StringCustomFieldRef
+                    datafRef.scriptId = "custcol_vendor_memo"
+                    datafRef.value = newdata
+                    cfRefs(0) = CType(datafRef, CustomFieldRef)
+                    lineItem.customFieldList = cfRefs
+                    newitemlist(i) = lineItem
+                End If
                 i += 1
             Next
             Dim newPOItemList As PurchaseOrderItemList

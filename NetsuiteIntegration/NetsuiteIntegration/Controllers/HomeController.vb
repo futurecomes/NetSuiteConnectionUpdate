@@ -16,17 +16,28 @@ Public Class HomeController
         oNetsuite.LoginWithToken()
         Dim internalId As String
         internalId = New String("")
+        Dim location As String
+        location = New String("")
+        Dim lineuniquekey As String
+        lineuniquekey = New String("")
+
 
         Dim productEstimateEndDate As String
         productEstimateEndDate = New String("")
         If Request.QueryString("internalId") IsNot Nothing Then
             internalId = Request.QueryString("internalId")
         End If
+        If Request.QueryString("location") IsNot Nothing Then
+            location = Request.QueryString("location")
+        End If
+        If Request.QueryString("lineuniquekey") IsNot Nothing Then
+            lineuniquekey = Request.QueryString("lineuniquekey")
+        End If
         If Request.QueryString("date") IsNot Nothing Then
             productEstimateEndDate = Request.QueryString("date")
         End If
-        If Not String.IsNullOrEmpty(internalId) And Not String.IsNullOrEmpty(productEstimateEndDate) Then
-            Dim result As String = NewMethod(internalId, productEstimateEndDate)
+        If Not String.IsNullOrEmpty(internalId) And Not String.IsNullOrEmpty(location) And Not String.IsNullOrEmpty(productEstimateEndDate) Then
+            Dim result As String = NewMethod(internalId, location, lineuniquekey, productEstimateEndDate)
             ViewData("Message") = result
         End If
         'Dim polist As String() = {"86800"}
@@ -41,22 +52,28 @@ Public Class HomeController
         If Request.QueryString("internalId") IsNot Nothing Then
             internalId = Request.QueryString("internalId")
         End If
+        If Request.QueryString("location") IsNot Nothing Then
+            location = Request.QueryString("location")
+        End If
+        If Request.QueryString("lineuniquekey") IsNot Nothing Then
+            lineuniquekey = Request.QueryString("lineuniquekey")
+        End If
         If Request.QueryString("data") IsNot Nothing Then
             MemoFromVendor = Request.QueryString("data")
         End If
         If Not String.IsNullOrEmpty(internalId) And Not String.IsNullOrEmpty(MemoFromVendor) Then
-            Dim result As String = NewMethod1(internalId, MemoFromVendor)
+            Dim result As String = NewMethod1(internalId, location, lineuniquekey, MemoFromVendor)
             ViewData("Message") = result
         End If
         Return View()
     End Function
 
-    Private Function NewMethod(internalId As String, productEstimateEndDate As String) As String
-        Return oNetsuite.UpdateProductEstimateEndDate(internalId, productEstimateEndDate)
+    Private Function NewMethod(internalId As String, location As String, lineuniquekey As String, productEstimateEndDate As String) As String
+        Return oNetsuite.UpdateProductEstimateEndDate(internalId, location, lineuniquekey, productEstimateEndDate)
     End Function
 
-    Private Function NewMethod1(internalId As String, MemoFromVendor As String) As String
-        Return oNetsuite.UpdateMemoFromVendor(internalId, MemoFromVendor)
+    Private Function NewMethod1(internalId As String, location As String, lineuniquekey As String, MemoFromVendor As String) As String
+        Return oNetsuite.UpdateMemoFromVendor(internalId, location, lineuniquekey, MemoFromVendor)
     End Function
 
     Function About() As ActionResult
