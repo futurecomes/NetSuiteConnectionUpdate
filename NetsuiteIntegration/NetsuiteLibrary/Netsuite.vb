@@ -141,13 +141,16 @@ Public Class Netsuite
             locationRec.typeSpecified = True
 
             Dim i = 0
-            Dim flag As Boolean = False
+
             For Each item As PurchaseOrderItem In itemlist
+                Dim flag As Boolean = False
                 Dim customFieldlist = item.customFieldList
                 For Each customfield As CustomFieldRef In customFieldlist
-                    If customfield.scriptId Is "custcol_line_unique_key" Then
-                        Dim value As String = CType(customfield, StringCustomFieldRef).value
-                        If value Is lineuniquekey Then
+                    If String.Compare(customfield.scriptId, "custcol_line_unique_key") = 0 Then
+                        Dim value As Long = New Long
+                        value = CType(customfield, LongCustomFieldRef).value
+
+                        If value = CType(lineuniquekey, Long) Then
                             flag = True
                             Exit For
                         End If
@@ -171,9 +174,9 @@ Public Class Netsuite
                     datefRef = New DateCustomFieldRef
                     datefRef.scriptId = "custcol_prodenddate"
                     datefRef.value = custcolProdenddateValue
-                    Dim uniquekey As StringCustomFieldRef = New StringCustomFieldRef
+                    Dim uniquekey As LongCustomFieldRef = New LongCustomFieldRef
                     uniquekey.scriptId = "custcol_line_unique_key"
-                    uniquekey.value = lineuniquekey
+                    uniquekey.value = CType(lineuniquekey, Long)
                     cfRefs(0) = CType(datefRef, CustomFieldRef)
                     cfRefs(1) = CType(uniquekey, CustomFieldRef)
                     lineItem.customFieldList = cfRefs
@@ -228,13 +231,16 @@ Public Class Netsuite
             locationRec.typeSpecified = True
 
             Dim i = 0
-            Dim flag As Boolean = False
+
             For Each item As PurchaseOrderItem In itemlist
+                Dim flag As Boolean = False
                 Dim customFieldlist = item.customFieldList
                 For Each customfield As CustomFieldRef In customFieldlist
-                    If customfield.scriptId Is "custcol_line_unique_key" Then
-                        Dim value As String = CType(customfield, StringCustomFieldRef).value
-                        If value Is lineuniquekey Then
+                    If String.Compare(customfield.scriptId, "custcol_line_unique_key") = 0 Then
+                        Dim value As Long = New Long
+                        value = CType(customfield, LongCustomFieldRef).value
+
+                        If value = CType(lineuniquekey, Long) Then
                             flag = True
                             Exit For
                         End If
@@ -258,8 +264,15 @@ Public Class Netsuite
                     datafRef = New StringCustomFieldRef
                     datafRef.scriptId = "custcol_vendor_memo"
                     datafRef.value = newdata
+                    Dim uniquekey As LongCustomFieldRef = New LongCustomFieldRef
+                    uniquekey.scriptId = "custcol_line_unique_key"
+                    uniquekey.value = CType(lineuniquekey, Long)
                     cfRefs(0) = CType(datafRef, CustomFieldRef)
+                    cfRefs(1) = CType(uniquekey, CustomFieldRef)
                     lineItem.customFieldList = cfRefs
+
+                    lineItem.location = locationRec
+
                     newitemlist(i) = lineItem
                 End If
                 i += 1
